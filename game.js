@@ -8,12 +8,18 @@ let ships = [1];
 ships[0] = new Ship(ctx,0,100,10,10,"red");
 
 let k = new KeyList();
-k.registerKeyHandler("A",()=>{
-    console.log("A");
+
+
+
+k.registerKeyHandler("a",()=>{
+    console.log("AAAA");
+});
+
+k.registerKeyHandler("b",()=>{
+    console.log("BBBB");
 });
 
 k.activateHandlers();
-
 
 let previous = 0;
 function update(time){
