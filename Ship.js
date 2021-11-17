@@ -1,11 +1,17 @@
+import Vector2 from './Vector2.js'
+
 class Ship{
-    constructor(ctx,x,y,width,height, color){
+    constructor(ctx,x,y,width,height, color, maxSpeed, acceleration, decelleration){
         this.ctx = ctx;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.color = color;
+        this.speed = new Vector2(0,0);
+        this.maxSpeed = maxSpeed;
+        this.acceleration = acceleration;
+        this.decelleration = decelleration;
     }
     draw(){
         
@@ -29,6 +35,21 @@ class Ship{
     }
     getY(){
         return this.y;
+    }
+    getSpeed(){
+        return this.speed;
+    }
+    setSpeed(value){
+        this.speed = value;
+    }
+    getMaxSpeed(){
+        return this.maxSpeed;
+    }
+    getAccelleration(){
+        return this.acceleration;
+    }
+    getDecelleration(){
+        return this.decelleration;
     }
 }
 export default Ship;
