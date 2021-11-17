@@ -1,12 +1,19 @@
 import Ship from './Ship.js'
+import KeyList from './KeyList.js'
 
 let canvas = document.getElementById("game");
 let ctx = canvas.getContext("2d");
 
-let ships = [3]; 
+let ships = [1]; 
 ships[0] = new Ship(ctx,0,100,10,10,"red");
-ships[1] = new Ship(ctx,0,150,10,10,"green");
-ships[2] = new Ship(ctx,0,200,10,10,"yellow");
+
+let k = new KeyList();
+k.registerKeyHandler("A",()=>{
+    console.log("A");
+});
+
+k.activateHandlers();
+
 
 let previous = 0;
 function update(time){

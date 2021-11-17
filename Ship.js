@@ -22,7 +22,6 @@ class Ship{
         this.x = value;
     }
     getX(){
-        console.log(this.x);
         return this.x;
     }
     setY(value){
