@@ -13,7 +13,7 @@ function update(time){
     //beweging
     x++;
     //teken vierkant
-    drawSquare(x,y,size,"red");
+    drawShip(x,y,size,"red");
 
     window.requestAnimationFrame(update);
 }
@@ -28,5 +28,15 @@ function drawSquare(x,y,size, color){
     ctx.lineTo(x+size,y+size);
     ctx.lineTo(x,y+size);
     ctx.lineTo(x,y);
+    ctx.fill();
+}
+function drawShip(x,y,size, color){
+    //Vierkantje tekenen
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(x+size/2,y);
+    ctx.lineTo(x-size/2,y-size/2);
+    ctx.lineTo(x-size/2,y+size/2);    
+    ctx.lineTo(x+size/2,y);
     ctx.fill();
 }
