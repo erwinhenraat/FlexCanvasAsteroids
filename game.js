@@ -52,18 +52,20 @@ document.addEventListener("keyup", (event)=>{
 let angle = 0;
 let rotSpeed = 0.05;
 //gameloop
-function update(time){
+function update(time){       
+    ctx.clearRect(x-10,y-10,20, 20);
+
+   
 
     if(previous != 0){
         delta = time - previous
     }
     
-    ctx.clearRect(0,0,canvas.width, canvas.height);
-
     
     //check input for speed
     if(speed < maxSpeed)speed += verInput * acc;
     if(speed < 0)speed = 0;
+    if(speed > 0 && verInput == 0) speed-=0.001;
     
     //beweging
     x+= speed * delta;
@@ -71,8 +73,6 @@ function update(time){
     //verplaats origin van canvas naar locatie van het schip
     ctx.translate(x,y);
 
-       
-    
     //teken vierkant
     drawShip(0,0,size,"green");
     
