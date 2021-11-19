@@ -6,14 +6,25 @@ let x = 100;
 let y = 100;
 let size = 10;
 
+let previous = 0;
+let delta = 0;
+
 //gameloop
 function update(time){
-    
+        
+    if(previous != 0){
+        delta = time - previous
+    }
+
+
     ctx.clearRect(0,0,canvas.width, canvas.height);
     //beweging
-    x++;
+    x+= 0.08 * delta;
     //teken vierkant
     drawShip(x,y,size,"red");
+
+
+    previous = time;
 
     window.requestAnimationFrame(update);
 }
