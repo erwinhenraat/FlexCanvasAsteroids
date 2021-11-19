@@ -1,33 +1,27 @@
-import Ship from './Ship.js'
-import KeyList from './KeyList.js'
-
-
 let canvas = document.getElementById("game");
 let ctx = canvas.getContext("2d");
 
-
-//tekenposities
+//beginposities
 let x = 100;
 let y = 100;
 let size = 10;
 
-//kleur
-ctx.fillStyle = "red";
-
+//gameloop
 function update(time){
     
     ctx.clearRect(0,0,canvas.width, canvas.height);
     //beweging
     x++;
     //teken vierkant
-    drawSquare(x,y,size);
+    drawSquare(x,y,size,"red");
 
     window.requestAnimationFrame(update);
 }
 window.requestAnimationFrame(update);
 
-function drawSquare(x,y,size){
+function drawSquare(x,y,size, color){
     //Vierkantje tekenen
+    ctx.fillStyle = color;
     ctx.beginPath();
     ctx.moveTo(x,y);
     ctx.lineTo(x+size,y);
