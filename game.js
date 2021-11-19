@@ -17,9 +17,7 @@ let acc = 0.001;
 let speed = 0;
 let maxSpeed = 0.2;
 
-let angle = 0;
-let rotSpeed = 0;
-let rotAcc = 0.001;
+
 //onpress
 document.addEventListener("keydown", (event)=>{
     if(event.key == "w"){
@@ -51,37 +49,38 @@ document.addEventListener("keyup", (event)=>{
     }
 });
 
+let angle = 0;
+let rotSpeed = 0.05;
 //gameloop
 function update(time){
+
     if(previous != 0){
         delta = time - previous
     }
+    
+    ctx.clearRect(0,0,canvas.width, canvas.height);
+
+    
     //check input for speed
     if(speed < maxSpeed)speed += verInput * acc;
     if(speed < 0)speed = 0;
     
-    //check input for rotation
-    if(horInput!=0)rotSpeed -= rotAcc * horInput;
-    if(horInput==0 && rotSpeed !=0)rotSpeed -= rotAcc * horInput;
-
-  
-    angle += rotSpeed;
-    console.log("rspeed" + rotSpeed);
-
-    ctx.rotate(rotSpeed*Math.PI/2);
-    //verplaats pivot
-    //ctx.translate(x,y);
-    
-    //ctx.translate(0,0);
-
-   
-
-    ctx.clearRect(0,0,canvas.width, canvas.height);
     //beweging
     x+= speed * delta;
-    //teken vierkant
-    drawShip(x,y,size,"red");
+    
+    //verplaats origin van canvas naar locatie van het schip
+    ctx.translate(x,y);
 
+       
+    
+    //teken vierkant
+    drawShip(0,0,size,"green");
+    
+    //roteer de canvas
+    ctx.rotate((rotSpeed*horInput)*Math.PI/2);
+    
+    //verplaats origin van canvas terug naar de hoek
+    ctx.translate(-x,-y);
 
     previous = time;
 
