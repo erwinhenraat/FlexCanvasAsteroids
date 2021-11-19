@@ -9,25 +9,30 @@ let ctx = canvas.getContext("2d");
 //tekenposities
 let x = 100;
 let y = 100;
-let w = 10;
-let h = 10;
+let size = 10;
+
 //kleur
 ctx.fillStyle = "red";
 
 function update(time){
     
+    ctx.clearRect(0,0,canvas.width, canvas.height);
     //beweging
     x++;
-
-    //Vierkantje tekenen
-    ctx.beginPath();
-    ctx.moveTo(x,y);
-    ctx.lineTo(x+w,y);
-    ctx.lineTo(x+w,y+h);
-    ctx.lineTo(x,y+h);
-    ctx.lineTo(x,y);
-    ctx.fill();
+    //teken vierkant
+    drawSquare(x,y,size);
 
     window.requestAnimationFrame(update);
 }
 window.requestAnimationFrame(update);
+
+function drawSquare(x,y,size){
+    //Vierkantje tekenen
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+    ctx.lineTo(x+size,y);
+    ctx.lineTo(x+size,y+size);
+    ctx.lineTo(x,y+size);
+    ctx.lineTo(x,y);
+    ctx.fill();
+}
