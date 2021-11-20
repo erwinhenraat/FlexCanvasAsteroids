@@ -73,7 +73,7 @@ function update(time){
     ctx.translate(x,y);
 
     //teken vierkant
-    drawShip(x,y,size,"purple");
+    drawShip(0,0,size,"purple");
     
     //roteer de canvas
     ctx.rotate((rotSpeed*horInput)*Math.PI/2);
