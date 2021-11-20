@@ -54,8 +54,7 @@ let rotSpeed = 0.05;
 //gameloop
 function update(time){       
     ctx.clearRect(x-10,y-10,20, 20);
-
-   
+    //ctx.clearRect(0,0,canvas.width, canvas.height);
 
     if(previous != 0){
         delta = time - previous
@@ -74,7 +73,7 @@ function update(time){
     ctx.translate(x,y);
 
     //teken vierkant
-    drawShip(0,0,size,"green");
+    drawShip(x,y,size,"purple");
     
     //roteer de canvas
     ctx.rotate((rotSpeed*horInput)*Math.PI/2);
