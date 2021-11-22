@@ -102,36 +102,30 @@ function update(time){
 
     //roteer elk object en trek de rotatie eraf
     //toteer volgende object met overgebleven rotatie
-
+/*
     let totalRot = 0;//rotSpeed*inputVector.x;
     rocks.forEach(r => {
         totalRot += r.rotSpeed;
     });
     let resetRot = totalRot;
     console.log("total rot" + totalRot);
-
+*/
     rocks.forEach(r => {
 
         //Translaties moeten ook bij elkaar worden opgeteld net als bij total Rotation
-        ctx.translate(r.x,r.y);
+
         
+        ctx.translate(r.x,r.y);        
         ctx.clearRect(0-r.size,0-r.size,r.size*2, r.size*2);
-        
-        ctx.rotate(totalRot);
+        r.rotation += r.rotSpeed;
+        ctx.rotate(r.rotation);
         drawRock(0,0,r.size,r.color,r.modifiers);
+        ctx.save();
+        ctx.restore();
         
         
-        ctx.rotate(-r.rotSpeed);
-
-        //ctx.rotate(-totalRot);
-        ctx.translate(-r.x,-r.y);
-        totalRot -= r.rotSpeed;
-        
-        console.log("between:" +totalRot);
-
     });
 
-    console.log("after loop:" +totalRot);
     
 
     //verplaats origin van canvas naar locatie van het schip
