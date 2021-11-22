@@ -49,8 +49,51 @@ let rotSpeed = 0.05;
 
 
 //!!!!!!To do: add all rotation values to offset every next rotation
+//let rockPointModifiers = [];
+let rocks = [];
+
+function addRock(xPos, yPos, size){
+    rocks.push({x:xPos, y:yPos, size:size, rot:Math.random()*Math.PI*2 , rotSpeed:-(Math.random()*Math.PI) + (Math.random()*Math.PI*2), modifiers:generateRandomRockPointModifiers()});
+    
+}
+
+addRock(200,100, 25);
+addRock(200,200, 25);
+
+//console.log(rocks);
+rocks.forEach(r => {
+    drawRock(r.x,r.y,r.size,"grey", r.modifiers);    
+});
 
 
+
+function generateRandomRockPointModifiers(){
+    return [
+        {y:1+Math.random()*1},                          //upper point modifier
+        {x:2+Math.random()*4, y:2+Math.random()*4},     //other point modifier
+        {x:2+Math.random()*4, y:2+Math.random()*4},
+        {x:2+Math.random()*4, y:2+Math.random()*4},
+        {x:2+Math.random()*4, y:2+Math.random()*4},
+    ];
+}
+
+
+function drawRock(x,y,size, color, modifiers){
+    //Rots tekenen
+    if(size < 30){
+        console.warn("Rocksize below 30 may result in invisible Rocks when spawned @ player position");
+    }
+
+    ctx.fillStyle = color;
+    ctx.beginPath();    
+    ctx.moveTo(x,y-size/modifiers[0].y);
+    ctx.lineTo(x+size/modifiers[1].x,y-size/modifiers[1].y);
+    ctx.lineTo(x+size/modifiers[2].x,y+size/modifiers[2].y);
+    ctx.lineTo(x-size/modifiers[3].x,y+size/modifiers[3].y);
+    ctx.lineTo(x-size/modifiers[4].x,y-size/modifiers[4].y);
+    ctx.lineTo(x,y-size/modifiers[0].y);
+    ctx.fill();
+}
 //gameloop
 function update(time){       
    
@@ -107,32 +150,9 @@ function drawSquare(x,y,size, color){
     ctx.fill();
 }
 
-let rockPointModifiers = [];
-rockPointModifiers.push(generateRandomRockPointModifiers());
-
-function generateRandomRockPointModifiers(){
-    return [
-        {y:1+Math.random()*1},                          //upper point modifier
-        {x:2+Math.random()*4, y:2+Math.random()*4},     //other point modifier
-        {x:2+Math.random()*4, y:2+Math.random()*4},
-        {x:2+Math.random()*4, y:2+Math.random()*4},
-        {x:2+Math.random()*4, y:2+Math.random()*4},
-    ];
-}
 
 
-function drawRock(x,y,size, color, modifiers){
-    //Rots tekenen
-    ctx.fillStyle = color;
-    ctx.beginPath();    
-    ctx.moveTo(x,y-size/modifiers[0].y);
-    ctx.lineTo(x+size/modifiers[1].x,y-size/modifiers[1].y);
-    ctx.lineTo(x+size/modifiers[2].x,y+size/modifiers[2].y);
-    ctx.lineTo(x-size/modifiers[3].x,y+size/modifiers[3].y);
-    ctx.lineTo(x-size/modifiers[4].x,y-size/modifiers[4].y);
-    ctx.lineTo(x,y-size/modifiers[0].y);
-    ctx.fill();
-}
+
 function drawShip(x,y,size, color){
     //schip tekenen
     ctx.fillStyle = color;
