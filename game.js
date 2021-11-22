@@ -47,13 +47,17 @@ document.addEventListener("keyup", (event)=>{
 let angle = 0;
 let rotSpeed = 0.05;
 
+
+//!!!!!!To do: add all rotation values to offset every next rotation
+
+
 //gameloop
 function update(time){       
-    ctx.clearRect(x-10,y-10,20, 20);
+   
     //ctx.clearRect(0,0,canvas.width, canvas.height);
 
     if(previous != 0){
-        delta = time - previous
+        delta = time - previous;
     }    
     
     //check input for speed
@@ -64,24 +68,30 @@ function update(time){
     //beweging
     x+= speed * delta;
     
-    //verplaats origin van canvas naar locatie van het schip
-    ctx.translate(x,y);
 
-    //teken vierkant
-    drawShip(0,0,size,"purple");
+
+    //verplaats origin van canvas naar locatie van het schip
     
-    //roteer de canvas
+    ctx.translate(x,y);
+    ctx.clearRect(0-size,0-size,size*2, size*2);
+    drawShip(0,0,size,"purple");
+    //roteer de canvas terug
     ctx.rotate((rotSpeed*inputVector.x)*Math.PI/2);
     
     //verplaats origin van canvas terug naar de hoek
     ctx.translate(-x,-y);
 
+    //rock
+    
 
-    drawRock(200,100,50,"darkgrey",rockPointModifiers[0]);
+
+
+  
 
     previous = time;
-
+  
     window.requestAnimationFrame(update);
+  
 }
 window.requestAnimationFrame(update);
 
@@ -110,9 +120,9 @@ function generateRandomRockPointModifiers(){
     ];
 }
 
+
 function drawRock(x,y,size, color, modifiers){
-    ctx.clearRect(x-10,y-10, x + size + 10, y + size + 10);
-    ctx.strokeStyle = "black";
+    //Rots tekenen
     ctx.fillStyle = color;
     ctx.beginPath();    
     ctx.moveTo(x,y-size/modifiers[0].y);
@@ -121,11 +131,10 @@ function drawRock(x,y,size, color, modifiers){
     ctx.lineTo(x-size/modifiers[3].x,y+size/modifiers[3].y);
     ctx.lineTo(x-size/modifiers[4].x,y-size/modifiers[4].y);
     ctx.lineTo(x,y-size/modifiers[0].y);
-    ctx.stroke();
     ctx.fill();
 }
 function drawShip(x,y,size, color){
-    //Vierkantje tekenen
+    //schip tekenen
     ctx.fillStyle = color;
     ctx.beginPath();
     ctx.moveTo(x+size/2,y);
