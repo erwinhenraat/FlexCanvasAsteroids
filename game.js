@@ -58,7 +58,7 @@ addRock(200,200, 25, "blue");
 addRock(200,300, 35, "pink");
 
 function addRock(xPos, yPos, size, color){
-    rocks.push({x:xPos, y:yPos, size:size,color:color, rot:Math.random()*Math.PI*2 , rotSpeed:-(Math.random()*Math.PI/8) + (Math.random()*Math.PI/4), modifiers:generateRandomRockPointModifiers()});
+    rocks.push({x:xPos, y:yPos, size:size,color:color, rotation:Math.random()*Math.PI*2 , rotSpeed:-(Math.random()*Math.PI/8) + (Math.random()*Math.PI/4), modifiers:generateRandomRockPointModifiers()});
     
 }
 function generateRandomRockPointModifiers(){
@@ -113,39 +113,26 @@ function update(time){
     drawShip(0,0,10,"blue");
 
     ctx.resetTransform();
+ 
 
 
-
-
-
-
-    
-
-/*
-    let totalRot = 0;//rotSpeed*inputVector.x;
-    rocks.forEach(r => {
-        totalRot += r.rotSpeed;
-    });
-    let resetRot = totalRot;
-    console.log("total rot" + totalRot);
 
     rocks.forEach(r => {
 
         //Translaties moeten ook bij elkaar worden opgeteld net als bij total Rotation
-
-        
+       
         ctx.translate(r.x,r.y);        
-        ctx.clearRect(0-r.size,0-r.size,r.size*2, r.size*2);
+       
         r.rotation += r.rotSpeed;
+      
         ctx.rotate(r.rotation);
         drawRock(0,0,r.size,r.color,r.modifiers);
-        ctx.save();
-        ctx.restore();
         
+        ctx.resetTransform();
         
     });
 
-*/    
+
 
     //verplaats origin van canvas naar locatie van het schip
 /*
