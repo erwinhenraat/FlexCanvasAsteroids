@@ -1,10 +1,18 @@
 let canvas = document.getElementById("game");
 let ctx = canvas.getContext("2d");
 
-//beginposities van schip
+//schip data
 let x = 100;
 let y = 100;
 let size = 10;
+let rotation = 0;
+let rotSpeed = 0.05;
+let acc = 0.001;
+let speed = 0;
+let maxSpeed = 0.2;
+
+
+
 
 //timestamp vorige frame en delta (verschil)
 let previous = 0;
@@ -14,9 +22,6 @@ let delta = 0;
 let inputVector = {x:0,y:0};
 
 
-let acc = 0.001;
-let speed = 0;
-let maxSpeed = 0.2;
 
 
 //onpress
@@ -44,10 +49,8 @@ document.addEventListener("keyup", (event)=>{
     }
 });
 
-let angle = 0;
-let rotSpeed = 0.05;
 
-//!!!!!!To do: add all rotation values to offset every next rotation
+
 
 let rocks = [];
 addRock(200,100, 20, "red");
@@ -83,7 +86,7 @@ function drawRock(x,y,size, color, modifiers){
 //gameloop
 function update(time){       
    
-    //ctx.clearRect(0,0,canvas.width, canvas.height);
+    ctx.clearRect(0,0,canvas.width, canvas.height);
 
     if(previous != 0){
         delta = time - previous;
@@ -96,12 +99,21 @@ function update(time){
     
     //beweging
     x+= speed * delta;
+    rotation += 0.01;
+    ctx.translate(x,y);
+    ctx.rotate(rotation);
+
+    drawShip(0,0,10,"blue");
+
+    ctx.resetTransform();
+
+
+
+
+
+
     
 
-    //Tel alle rotaties van alle objecten bij elkaar op
-
-    //roteer elk object en trek de rotatie eraf
-    //toteer volgende object met overgebleven rotatie
 /*
     let totalRot = 0;//rotSpeed*inputVector.x;
     rocks.forEach(r => {
@@ -109,7 +121,7 @@ function update(time){
     });
     let resetRot = totalRot;
     console.log("total rot" + totalRot);
-*/
+
     rocks.forEach(r => {
 
         //Translaties moeten ook bij elkaar worden opgeteld net als bij total Rotation
@@ -126,7 +138,7 @@ function update(time){
         
     });
 
-    
+*/    
 
     //verplaats origin van canvas naar locatie van het schip
 /*
