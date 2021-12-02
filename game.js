@@ -98,8 +98,15 @@ function update(time){
     if(speed > 0 && inputVector.y == 0) speed-=0.001;
     
     //beweging
-    x+= speed * delta;
-    rotation += 0.01;
+    //x+= speed * delta;
+ 
+    
+    rotation += rotSpeed * inputVector.x;
+
+    x += Math.cos(rotation)*speed*delta;
+    y += Math.sin(rotation)*speed*delta;
+       
+
     ctx.translate(x,y);
     ctx.rotate(rotation);
 
