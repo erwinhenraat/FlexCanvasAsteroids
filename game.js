@@ -2,6 +2,15 @@
 let canvas = document.getElementById("game");
 let ctx = canvas.getContext("2d");
 
+
+
+ctx.beginPath();
+ctx.strokeStyle = "black";
+ctx.lineWidth = "2";
+ctx.rect(0,0,canvas.width, canvas.height);
+ctx.stroke();
+
+
 //timestamp vorige frame en delta (verschil)
 let previous = 0;
 let delta = 0;
@@ -67,7 +76,7 @@ function addRock(xPos, yPos, size, color){
 //gameloop
 function update(time){       
    
-    ctx.clearRect(0,0,canvas.width, canvas.height);
+    ctx.clearRect(2,2,canvas.width-4, canvas.height-4);
 
     if(previous != 0){
         delta = time - previous;
@@ -103,7 +112,7 @@ function update(time){
         if(r.x < - r.size)r.x = canvas.width + r.size;
         if(r.y > canvas.height + r.size)r.y = -r.size;
         if(r.y < - r.size)r.y = canvas.height + r.size;
-        
+
         ctx.translate(r.x,r.y);        
         r.rotation += r.rotSpeed;      
         ctx.rotate(r.rotation);
