@@ -1,5 +1,4 @@
 class Vector2{
-    static ZERO = new Vector2(0,0);
     x;
     y;
     constructor(x,y){
@@ -23,21 +22,15 @@ class Vector2{
         return Math.abs(Math.sqrt((this.x*this.x)+(this.y*this.y)));
     }
 }
-
-
-
 //haal canvas en context op
 let canvas = document.getElementById("game");
 let ctx = canvas.getContext("2d");
-
-
 
 ctx.beginPath();
 ctx.strokeStyle = "black";
 ctx.lineWidth = "2";
 ctx.rect(0,0,canvas.width, canvas.height);
 ctx.stroke();
-
 
 //timestamp vorige frame en delta (verschil)
 let previous = 0;
@@ -73,11 +66,11 @@ document.addEventListener("keyup", (event)=>{
 
 //maak schip object
 let ship = {
-    size:10,
+    size:20,
     rotation:0,
     rotSpeed:0.08,
-    accelleration:0.015,
-    maxVelocity:8,    
+    accelleration:0.008,
+    maxVelocity:10,    
     accVector:new Vector2(0,0),
     velVector:new Vector2(0,0),
     posVector:new Vector2(100,100),
@@ -126,7 +119,7 @@ function update(time){
     ship.velVector.add(ship.accVector); //calculate velocity
 
     //Set speed resistance boundary
-    if(ship.velVector.magnitude() > ship.maxVelocity * 0.8 ) ship.velVector.multiply(0.9);
+    if(ship.velVector.magnitude() > ship.maxVelocity) ship.velVector.multiply(0.9);
 
     
     ship.posVector.add(ship.velVector); //calculate position
@@ -140,10 +133,25 @@ function update(time){
     //draw rotatable ship
     ctx.translate(ship.posVector.x,ship.posVector.y);
     ctx.rotate(ship.rotation);
-    drawShip(0,0,10,"blue");
+    drawShip(0,0,ship.size,"blue");
     ctx.resetTransform();
 
+    rocks.forEach(r => {    
+        r.x += r.direction.x;
+        r.y += r.direction.y;
 
+        //teleporteer rotsen
+        if(r.x > canvas.width + r.size)r.x = -r.size;
+        if(r.x < - r.size)r.x = canvas.width + r.size;
+        if(r.y > canvas.height + r.size)r.y = -r.size;
+        if(r.y < - r.size)r.y = canvas.height + r.size;
+
+        ctx.translate(r.x,r.y);        
+        r.rotation += r.rotSpeed;      
+        ctx.rotate(r.rotation);
+        drawRock(0,0,r.size,r.color,r.modifiers);        
+        ctx.resetTransform();        
+    });
 
     /*
     //check input for speed
@@ -167,22 +175,7 @@ function update(time){
     drawShip(0,0,10,"blue");
     ctx.resetTransform();
  
-    rocks.forEach(r => {    
-        r.x += r.direction.x;
-        r.y += r.direction.y;
-
-        //teleporteer rotsen
-        if(r.x > canvas.width + r.size)r.x = -r.size;
-        if(r.x < - r.size)r.x = canvas.width + r.size;
-        if(r.y > canvas.height + r.size)r.y = -r.size;
-        if(r.y < - r.size)r.y = canvas.height + r.size;
-
-        ctx.translate(r.x,r.y);        
-        r.rotation += r.rotSpeed;      
-        ctx.rotate(r.rotation);
-        drawRock(0,0,r.size,r.color,r.modifiers);        
-        ctx.resetTransform();        
-    });
+    
 
     */
     previous = time;  
