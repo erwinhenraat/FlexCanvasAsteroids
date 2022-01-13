@@ -78,9 +78,13 @@ let ship = {
 };
 //Maak Rotsen
 let rocks = [];
+
+
 addRock(200,100, 20, "red");
 addRock(200,200, 25, "blue");
 addRock(200,300, 35, "pink");
+
+
 
 function addRock(xPos, yPos, size, color){
     rocks.push({
@@ -135,7 +139,8 @@ function update(time){
     ctx.rotate(ship.rotation);
     drawShip(0,0,ship.size,"blue");
     ctx.resetTransform();
-
+    
+    //loop door alle rotsen in de array heen
     rocks.forEach(r => {    
         r.x += r.direction.x;
         r.y += r.direction.y;
