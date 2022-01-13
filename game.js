@@ -66,7 +66,7 @@ document.addEventListener("keyup", (event)=>{
 
 //maak schip object
 let ship = {
-    size:20,
+    size:15,
     rotation:0,
     rotSpeed:0.08,
     accelleration:0.008,
@@ -81,10 +81,15 @@ let rocks = [];
 
 
 addRock(200,100, 20, "red");
-addRock(200,200, 25, "blue");
-addRock(200,300, 35, "pink");
-
-
+addRock(200,200, 20, "blue");
+addRock(300,300, 20, "pink");
+addRock(200,400, 20, "orange");
+addRock(500,500, 20, "yellow");
+addRock(100,300, 20, "green");
+addRock(200,300, 35, "cyan");
+addRock(400,300, 15, "grey");
+addRock(600,400, 35, "dark grey");
+addRock(100,700, 20, "black");
 
 function addRock(xPos, yPos, size, color){
     rocks.push({
@@ -137,7 +142,7 @@ function update(time){
     //draw rotatable ship
     ctx.translate(ship.posVector.x,ship.posVector.y);
     ctx.rotate(ship.rotation);
-    drawShip(0,0,ship.size,"blue");
+    drawShip(0,0,ship.size,"black");
     ctx.resetTransform();
     
     //loop door alle rotsen in de array heen
